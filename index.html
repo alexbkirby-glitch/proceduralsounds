@@ -67,6 +67,17 @@ select,input[type=text]{min-height:44px;padding:10px 9px}
 .vlbl:hover{background:rgba(127,119,221,0.05)}.vlbl.vact{background:rgba(127,119,221,0.07)}
 @keyframes tIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes mIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+@media (max-width:700px) and (orientation:portrait){
+  body{display:flex;justify-content:center}
+  #app{height:100vh!important;height:100dvh!important;border-radius:0!important;width:100vw!important;max-width:100vw!important}
+  #topbar{flex-wrap:wrap!important;height:auto!important;min-height:44px;padding:7px 10px!important;row-gap:6px}
+  #topbar>div{margin-left:0!important}
+  #mainGrid{grid-template-columns:1fr!important;grid-template-rows:auto minmax(160px,1fr) auto!important}
+  #leftPanel{border-right:none!important;border-bottom:1px solid var(--brd);max-height:30vh}
+  #rightPanel{border-left:none!important;border-top:1px solid var(--brd);max-height:26vh}
+  #cnvGrid{grid-template-columns:1fr!important;grid-template-rows:auto 1fr!important}
+  #cnvPanel{border-right:none!important;border-bottom:1px solid rgba(78,205,196,0.09);max-height:38vh}
+}
 </style>
 </head>
 <body>
@@ -99,7 +110,7 @@ select,input[type=text]{min-height:44px;padding:10px 9px}
   </div>
 
   <!-- TOPBAR -->
-  <div style="background:var(--bg2);border-bottom:1px solid var(--brd);display:flex;align-items:center;padding:0 12px;gap:7px;flex-shrink:0;height:44px">
+  <div id="topbar" style="background:var(--bg2);border-bottom:1px solid var(--brd);display:flex;align-items:center;padding:0 12px;gap:7px;flex-shrink:0;height:44px">
     <svg width="16" height="13" viewBox="0 0 16 13" fill="none"><rect x="0" y="7" width="2" height="5" rx="1" fill="#7F77DD"/><rect x="3" y="4" width="2" height="8" rx="1" fill="#AFA9EC"/><rect x="6" y="1" width="2" height="11" rx="1" fill="#7F77DD"/><rect x="9" y="4.5" width="2" height="7" rx="1" fill="#7F77DD"/><rect x="12" y="7.5" width="2" height="4" rx="1" fill="#534AB7"/></svg>
     <span style="font-size:12px;font-weight:500;letter-spacing:.07em;flex-shrink:0">MUSIC GENERATOR</span>
     <button id="btnPre" class="nbtn">Presets</button>
@@ -115,10 +126,10 @@ select,input[type=text]{min-height:44px;padding:10px 9px}
 
   <!-- MAIN VIEW -->
   <div id="vMain" style="display:flex;flex-direction:column;flex:1;min-height:0">
-    <div style="display:grid;grid-template-columns:214px 1fr 160px;flex:1;overflow:hidden;min-height:0">
+    <div id="mainGrid" style="display:grid;grid-template-columns:214px 1fr 160px;flex:1;overflow:hidden;min-height:0">
 
       <!-- LEFT PANEL -->
-      <div style="background:var(--bg2);border-right:1px solid var(--brd);overflow-y:auto">
+      <div id="leftPanel" style="background:var(--bg2);border-right:1px solid var(--brd);overflow-y:auto">
         <div id="lglo" style="padding:10px 12px">
           <div class="sh" style="margin-top:0">Tonal</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:7px">
@@ -159,7 +170,7 @@ select,input[type=text]{min-height:44px;padding:10px 9px}
       </div>
 
       <!-- RIGHT PANEL -->
-      <div style="background:var(--bg2);border-left:1px solid var(--brd);padding:10px;overflow-y:auto">
+      <div id="rightPanel" style="background:var(--bg2);border-left:1px solid var(--brd);padding:10px;overflow-y:auto">
         <div class="sh" style="margin-top:0">Voices</div>
         <div id="vlist"></div>
         <div class="sh">Chord</div>
@@ -179,7 +190,7 @@ select,input[type=text]{min-height:44px;padding:10px 9px}
       <button class="ptb" id="plb">▶</button>
       <span style="font-size:11px;color:var(--txt2);min-width:36px" id="tcur">0:00</span>
       <div id="pgbar" style="flex:1;height:4px;background:rgba(127,119,221,0.13);border-radius:2px;cursor:pointer;position:relative">
-        <div id="pgfill" style="position:absolute;left:0;top:0;height:100%;background:var(--acc);border-radius:2px;width:0%"></div>
+        <div id="pgfill" style="position:absolute;left:0;top:0;height:100%;width:100%;background:var(--acc);border-radius:2px;transform-origin:left;transform:scaleX(0);will-change:transform"></div>
       </div>
       <span style="font-size:11px;color:var(--txt4);min-width:32px;text-align:right" id="ttot">0:00</span>
       <div style="width:1px;height:16px;background:var(--brd)"></div>
@@ -233,7 +244,7 @@ select,input[type=text]{min-height:44px;padding:10px 9px}
       <button class="stb" id="prStpb" style="padding:3px 9px;font-size:13px">■</button>
       <button class="ptb" id="prPlb" style="padding:3px 11px;font-size:13px">▶</button>
       <span style="font-size:10px;color:var(--txt2);min-width:36px" id="prCur">0:00</span>
-      <div id="prPgb" style="width:90px;height:3px;background:rgba(127,119,221,0.13);border-radius:2px;flex-shrink:0"><div id="prPgf" style="height:100%;background:var(--acc);border-radius:2px;width:0%"></div></div>
+      <div id="prPgb" style="width:90px;height:3px;background:rgba(127,119,221,0.13);border-radius:2px;flex-shrink:0"><div id="prPgf" style="height:100%;width:100%;background:var(--acc);border-radius:2px;transform-origin:left;transform:scaleX(0);will-change:transform"></div></div>
       <div style="width:1px;height:14px;background:var(--brd)"></div>
       <span style="font-size:9px;color:#3E3C54">Subdiv/beat:</span>
       <button id="sub2btn" style="background:rgba(127,119,221,0.15);border:1px solid rgba(127,119,221,0.3);border-radius:3px;padding:2px 9px;color:var(--txt2);font-size:11px;cursor:pointer;font-family:var(--fmono)" onclick="setEdSubs(2)">2</button>
@@ -253,8 +264,8 @@ select,input[type=text]{min-height:44px;padding:10px 9px}
       <span style="font-size:11px;font-weight:500;color:var(--acc2)">AUDIO → CHIPTUNE</span>
       <span id="cnvSt" style="font-size:10px;color:var(--txt4);margin-left:auto">Upload audio to begin</span>
     </div>
-    <div style="display:grid;grid-template-columns:180px 1fr;flex:1;overflow:hidden;min-height:0">
-      <div style="background:var(--bg2);border-right:1px solid rgba(78,205,196,0.09);padding:10px;overflow-y:auto">
+    <div id="cnvGrid" style="display:grid;grid-template-columns:180px 1fr;flex:1;overflow:hidden;min-height:0">
+      <div id="cnvPanel" style="background:var(--bg2);border-right:1px solid rgba(78,205,196,0.09);padding:10px;overflow-y:auto">
         <div id="dz" style="border:2px dashed rgba(78,205,196,0.18);border-radius:8px;padding:14px 8px;text-align:center;cursor:pointer;margin-bottom:9px"><div style="font-size:20px;color:rgba(78,205,196,0.3);margin-bottom:5px">↑</div><div style="font-size:11px;color:var(--acc2);margin-bottom:2px">Drop audio here</div><div style="font-size:9px;color:var(--txt4)">mp3 · wav · ogg</div></div>
         <input type="file" id="fInput" accept="audio/*" style="display:none">
         <div id="fInfo" style="display:none;background:rgba(78,205,196,0.04);border:1px solid rgba(78,205,196,0.12);border-radius:4px;padding:6px 8px;margin-bottom:9px"><div id="fName" style="font-size:10px;color:var(--acc2);word-break:break-all;margin-bottom:2px"></div><div id="fStats" style="font-size:9px;color:var(--txt4)"></div></div>
@@ -279,6 +290,7 @@ select,input[type=text]{min-height:44px;padding:10px 9px}
 </main>
 
 <script src="https://unpkg.com/tone@14.7.77/build/Tone.js" integrity="sha384-OIQZlttB2MRaZyoi526rVHiNUGYEq4MAMxDbTkwghmmqxs556T5g5LY926GH7NYM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg==" crossorigin="anonymous"></script>
 <script>
 const g=id=>document.getElementById(id);
 const f2=v=>parseFloat(v).toFixed(2);
@@ -313,6 +325,7 @@ const BUILTIN=[
   {name:'Ancient Ruins',tag:'Mystic',root:'B',mode:'Phrygian',chordProg:'Phrygian Cadence',voiceLead:.9,chordPlaning:.08,suspRate:.08,pedalStr:.5,tempo:58,ts:'4/4',length:24,voices:3,sections:4}
 ];
 
+try{Tone.context.lookAhead=0.15;}catch(e){}
 let trk=null,playing=false,looping=false,tRdy=false,audStrtd=false,syns=[null,null,null,null],filts=[null,null,null,null],mRev=null,dKit=null,raf=null,seedV=0x3A7F2C1B,hist=[],saves=[],edVI=0,lMode='global',vp=VINIT.map(v=>({...v})),edSubs=2;
 let prSyn=null,prPlaying=false,prRaf=null;
 let upBuf=null,chipNotes=null,waCtx=null,origSrc=null,chipSyn=null;
@@ -580,14 +593,11 @@ function regenVoice(vi){
 }
 
 // ---- AUDIO ---- NoiseSynth only for cymbals/hats — no MetalSynth lag
-async function initDrumKit(){
-  if(dKit)return;
-  const drumVI=vp.findIndex(v=>v.timbre==='Drum Kit');
-  const initDb=drumVI>=0?(vp[drumVI].vol||0):0;
-  const mvol=new Tone.Volume(initDb).toDestination();
+function buildDrumKit(initDb){
+  const mvol=new Tone.Volume(initDb||0).toDestination();
   const hp8=new Tone.Filter(8000,'highpass').connect(mvol);
   const hp6=new Tone.Filter(5500,'highpass').connect(mvol);
-  dKit={
+  const kit={
     _vol:mvol,
     kick:new Tone.MembraneSynth({pitchDecay:.05,octaves:10,envelope:{attack:.001,decay:.35,sustain:0,release:.1}}).connect(mvol),
     snare:new Tone.NoiseSynth({noise:{type:'white'},envelope:{attack:.001,decay:.13,sustain:0,release:.04}}).connect(mvol),
@@ -600,16 +610,24 @@ async function initDrumKit(){
     ftom:new Tone.MembraneSynth({pitchDecay:.06,octaves:3,envelope:{attack:.001,decay:.45,sustain:0,release:.15}}).connect(mvol)
   };
   const bvols={kick:-1,snare:-7,hhc:-17,hho:-13,crash:-9,ride:-13,tomhi:-7,tomlo:-5,ftom:-4};
-  DSK.forEach(k=>{try{dKit[k].volume.value=bvols[k]||0;}catch(e){}});
+  DSK.forEach(k=>{try{kit[k].volume.value=bvols[k]||0;}catch(e){}});
+  return kit;
 }
-function trigDrum(dp,time,vel){
-  if(!dKit)return;const k=DSK[dp];const s=dKit[k];if(!s)return;
+async function initDrumKit(){
+  if(dKit)return;
+  const drumVI=vp.findIndex(v=>v.timbre==='Drum Kit');
+  const initDb=drumVI>=0?(vp[drumVI].vol||0):0;
+  dKit=buildDrumKit(initDb);
+}
+function trigDrumOn(kit,dp,time,vel){
+  if(!kit)return;const k=DSK[dp];const s=kit[k];if(!s)return;
   try{
     if(dp===0)s.triggerAttackRelease('C2','8n',time,vel);
     else if(dp>=6){const ns=['A3','G3','E3'];s.triggerAttackRelease(ns[dp-6]||'G3','8n',time,vel);}
     else s.triggerAttackRelease('16n',time,vel);
   }catch(e){}
 }
+function trigDrum(dp,time,vel){trigDrumOn(dKit,dp,time,vel);}
 async function initAudio(){
   if(!audStrtd){await Tone.start();audStrtd=true;}
   if(!mRev){mRev=new Tone.Reverb({decay:3,wet:.32});await mRev.generate();mRev.toDestination();}
@@ -617,16 +635,23 @@ async function initAudio(){
   for(let vi=0;vi<4;vi++)await initSyn(vi);
   tRdy=true;g('audN').style.display='none';
 }
+function buildVoiceSynth(v,revNode){
+  if(v.timbre==='Drum Kit')return{syn:null,filt:null};
+  const tx=TX[v.timbre]||TX['Dark Strings'];const lF=v.attack;
+  const ma=tx.a*(.4+lF*.9),mr=tx.r*(.5+lF*1.8);
+  const filt=new Tone.Filter(300+v.brightness*6000,'lowpass').connect(revNode);filt.toDestination();
+  let syn;
+  if(tx.membrane)syn=new Tone.MembraneSynth({pitchDecay:.05,octaves:5,envelope:{attack:.001,decay:tx.d,sustain:tx.s,release:tx.r}}).connect(filt);
+  else syn=new Tone.PolySynth(Tone.Synth,{oscillator:{type:tx.osc},envelope:{attack:ma,decay:tx.d,sustain:tx.s,release:mr}}).connect(filt);
+  return{syn,filt};
+}
 async function initSyn(vi){
   if(syns[vi])try{syns[vi].dispose();}catch(e){}
   if(filts[vi])try{filts[vi].dispose();}catch(e){}
-  const v=vp[vi];if(v.timbre==='Drum Kit')return;
-  const tx=TX[v.timbre]||TX['Dark Strings'];const lF=v.attack;
-  const ma=tx.a*(.4+lF*.9),mr=tx.r*(.5+lF*1.8);
-  filts[vi]=new Tone.Filter(300+v.brightness*6000,'lowpass').connect(mRev);filts[vi].toDestination();
-  if(tx.membrane)syns[vi]=new Tone.MembraneSynth({pitchDecay:.05,octaves:5,envelope:{attack:.001,decay:tx.d,sustain:tx.s,release:tx.r}}).connect(filts[vi]);
-  else syns[vi]=new Tone.PolySynth(Tone.Synth,{oscillator:{type:tx.osc},envelope:{attack:ma,decay:tx.d,sustain:tx.s,release:mr}}).connect(filts[vi]);
-  syns[vi].volume.value=baseVol(vi)+(v.vol||0);
+  const v=vp[vi];
+  const{syn,filt}=buildVoiceSynth(v,mRev);
+  syns[vi]=syn;filts[vi]=filt;
+  if(syns[vi])syns[vi].volume.value=baseVol(vi)+(v.vol||0);
 }
 function liveTmb(vi){
   if(!tRdy||!syns[vi]||vp[vi].timbre==='Drum Kit')return;
@@ -643,13 +668,25 @@ function schedAudio(t){
   });
   if(!looping)Tone.Transport.schedule(()=>doStop(),t.dur+.25);
 }
+function silenceAll(){
+  // Tone.Transport.pause()/stop() only halts FUTURE scheduling — notes already
+  // triggered have their release baked into the Web Audio clock independent of
+  // Transport state, so they keep ringing to their natural end unless we force
+  // an immediate release here.
+  const now=Tone.now();
+  syns.forEach(s=>{if(!s)return;try{s.releaseAll?s.releaseAll(now):s.triggerRelease(now);}catch(e){}});
+  if(dKit)Object.keys(dKit).forEach(k=>{if(k==='_vol')return;try{dKit[k].triggerRelease&&dKit[k].triggerRelease(now);}catch(e){}});
+  if(typeof prSyn!=='undefined'&&prSyn)try{prSyn.releaseAll?prSyn.releaseAll(now):prSyn.triggerRelease(now);}catch(e){}
+  if(typeof chipSyn!=='undefined'&&chipSyn)try{chipSyn.releaseAll(now);}catch(e){}
+}
 async function doPlay(){if(!trk)return;if(!tRdy)await initAudio();try{schedAudio(trk);Tone.Transport.start();}catch(e){}playing=true;updPB();animPH();}
-function doPause(){try{Tone.Transport.pause();}catch(e){}playing=false;if(raf)cancelAnimationFrame(raf);updPB();}
-function doStop(){try{Tone.Transport.stop();Tone.Transport.cancel();}catch(e){}playing=false;if(raf)cancelAnimationFrame(raf);updPB();g('pgfill').style.width='0%';setTC(0);const ph=g('playhead');if(ph)ph.style.left='0px';}
+function doPause(){silenceAll();try{Tone.Transport.pause();}catch(e){}playing=false;if(raf)cancelAnimationFrame(raf);updPB();}
+function doStop(){silenceAll();try{Tone.Transport.stop();Tone.Transport.cancel();}catch(e){}playing=false;if(raf)cancelAnimationFrame(raf);updPB();g('pgfill').style.transform='scaleX(0)';_lastPhSec=-1;setTC(0);const ph=g('playhead');if(ph)ph.style.transform='translateX(0px)';}
 function updPB(){const b=g('plb');if(!b)return;b.textContent=playing?'⏸':'▶';b.classList.toggle('paused',playing);}
-function setTC(t){const m=Math.floor(t/60),s=Math.floor(t%60);g('tcur').textContent=`${m}:${s.toString().padStart(2,'0')}`;}
+function setTC(t){const m=Math.floor(t/60),s=Math.floor(t%60);const str=`${m}:${s.toString().padStart(2,'0')}`;const el=g('tcur');if(el.textContent!==str)el.textContent=str;}
 function fmtT(t){const m=Math.floor(t/60),s=Math.floor(t%60);return`${m}:${s.toString().padStart(2,'0')}`;}
-function animPH(){const td=trk?.dur||1;const u=()=>{const t=Tone.Transport.seconds;const ph=g('playhead');if(ph)ph.style.left=(t*PPS)+'px';g('pgfill').style.width=Math.min((t/td)*100,100).toFixed(1)+'%';setTC(t);raf=requestAnimationFrame(u);};raf=requestAnimationFrame(u);}
+let _lastPhSec=-1;
+function animPH(){const td=trk?.dur||1;const u=()=>{const t=Tone.Transport.seconds;const ph=g('playhead');if(ph)ph.style.transform=`translateX(${(t*PPS).toFixed(1)}px)`;g('pgfill').style.transform=`scaleX(${Math.min(t/td,1)})`;if(Math.floor(t)!==_lastPhSec){_lastPhSec=Math.floor(t);setTC(t);}raf=requestAnimationFrame(u);};raf=requestAnimationFrame(u);}
 
 // ---- TIMELINE ----
 function renderTL(t){
@@ -663,7 +700,7 @@ function renderTL(t){
     const lane=document.createElement('div');lane.style=`position:absolute;left:0;right:0;top:${vi*LH}px;height:${LH}px;border-bottom:1px solid rgba(127,119,221,.06)`;
     v.notes.forEach(n=>{const isDrum=n.drumPart!==undefined;const col=isDrum?DRUM_PARTS[n.drumPart]?.color:v.color;const x=n.time*PPS;const h=isDrum?Math.max(4,LH/9-1):Math.round(LH*(.35+n.vel*.4)-4);const top=isDrum?Math.floor(n.drumPart*(LH/9)):Math.round((LH-h)/2);const blk=document.createElement('div');blk.style=`position:absolute;left:${x}px;top:${top}px;width:${isDrum?3:Math.max(n.duration*PPS-1,3)}px;height:${h}px;background:${col};border-radius:1px;opacity:${v.muted?.1:.82};cursor:pointer`;blk.onclick=()=>openEd(vi);lane.appendChild(blk);});tn.appendChild(lane);
   });
-  const ph=document.createElement('div');ph.id='playhead';ph.style='position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--acc);z-index:10;pointer-events:none';tn.appendChild(ph);
+  const ph=document.createElement('div');ph.id='playhead';ph.style='position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--acc);z-index:10;pointer-events:none;will-change:transform';tn.appendChild(ph);
   renderVLbls(t);g('ttot').textContent=fmtT(t.dur);
 }
 function renderVLbls(t){const vl=g('vlbls');vl.innerHTML='';t.voices.forEach((v,vi)=>{const d=document.createElement('div');d.className='vlbl'+(lMode===vi?' vact':'');d.style.borderLeftColor=v.color;d.innerHTML=`<div style="font-size:9px;color:${v.color};letter-spacing:.05em">${v.name.toUpperCase()}</div><div style="font-size:9px;color:var(--txt4);margin-top:2px">${v.notes.length}n</div>`;d.onclick=()=>showVP(vi);vl.appendChild(d);});}
@@ -782,10 +819,10 @@ async function prPlay(){
   nl.forEach(({row,col})=>{const t=col*spS;Tone.Transport.schedule(time=>{if(isDrum)trigDrum(parseInt(row),time,.72);else if(prSyn)try{prSyn.triggerAttackRelease(row,spS*.85,time,.72);}catch(e){};},t);});
   const endT=(Math.max(...nl.map(({col})=>col+1))*spS)+.5;Tone.Transport.schedule(()=>prStop(),endT);
   try{Tone.Transport.start();}catch(e){}prPlaying=true;updPrPB();
-  const u=()=>{const t=Tone.Transport.seconds;g('prPgf').style.width=Math.min((t/endT)*100,100).toFixed(1)+'%';const m=Math.floor(t/60),s=Math.floor(t%60);g('prCur').textContent=`${m}:${s.toString().padStart(2,'0')}`;prRaf=requestAnimationFrame(u);};prRaf=requestAnimationFrame(u);
+  const u=()=>{const t=Tone.Transport.seconds;g('prPgf').style.transform=`scaleX(${Math.min(t/endT,1)})`;const m=Math.floor(t/60),s=Math.floor(t%60);g('prCur').textContent=`${m}:${s.toString().padStart(2,'0')}`;prRaf=requestAnimationFrame(u);};prRaf=requestAnimationFrame(u);
 }
-function prPause(){try{Tone.Transport.pause();}catch(e){}prPlaying=false;if(prRaf)cancelAnimationFrame(prRaf);updPrPB();}
-function prStop(){try{Tone.Transport.stop();Tone.Transport.cancel();}catch(e){}if(prSyn){try{prSyn.dispose();}catch(e){}prSyn=null;}prPlaying=false;if(prRaf)cancelAnimationFrame(prRaf);updPrPB();g('prPgf').style.width='0%';g('prCur').textContent='0:00';}
+function prPause(){if(prSyn){const now=Tone.now();try{prSyn.releaseAll?prSyn.releaseAll(now):prSyn.triggerRelease(now);}catch(e){}}try{Tone.Transport.pause();}catch(e){}prPlaying=false;if(prRaf)cancelAnimationFrame(prRaf);updPrPB();}
+function prStop(){try{Tone.Transport.stop();Tone.Transport.cancel();}catch(e){}if(prSyn){try{prSyn.dispose();}catch(e){}prSyn=null;}prPlaying=false;if(prRaf)cancelAnimationFrame(prRaf);updPrPB();g('prPgf').style.transform='scaleX(0)';g('prCur').textContent='0:00';}
 function updPrPB(){const b=g('prPlb');if(!b)return;b.textContent=prPlaying?'⏸':'▶';b.classList.toggle('paused',prPlaying);}
 
 // ---- VIEWS ----
@@ -853,8 +890,150 @@ g('gbn').onclick=genAndRender;
 g('rsd').onclick=()=>{seedV=(Math.floor(Math.random()*0xFFFFFFFE)+1)>>>0;g('sdv').textContent='0x'+seedV.toString(16).toUpperCase().padStart(8,'0');genAndRender();};
 g('plb').onclick=()=>{if(playing)doPause();else doPlay();};g('stpb').onclick=doStop;
 g('lpb').onclick=function(){looping=!looping;this.textContent='⟳ Loop: '+(looping?'on':'off');this.classList.toggle('on',looping);g('lpind').textContent='⟳ '+(looping?'on':'off');g('lpind').style.color=looping?'var(--acc)':'var(--txt4)';if(tRdy){Tone.Transport.loop=looping;if(trk)Tone.Transport.loopEnd=trk.dur;}};
-g('pgbar').onclick=function(e){if(!trk)return;const pct=(e.clientX-this.getBoundingClientRect().left)/this.offsetWidth;g('pgfill').style.width=(pct*100).toFixed(1)+'%';setTC(pct*trk.dur);const ph=g('playhead');if(ph)ph.style.left=(pct*trk.dur*PPS)+'px';};
-['e1','e2','e3'].forEach(id=>{g(id).onclick=function(){const o=this.textContent;this.textContent='↗ Available in full version';this.style.color='var(--acc)';setTimeout(()=>{this.textContent=o;this.style.color='';},2200);};});
+g('pgbar').onclick=function(e){
+  if(!trk)return;
+  const pct=Math.min(Math.max((e.clientX-this.getBoundingClientRect().left)/this.offsetWidth,0),1);
+  const pos=pct*trk.dur;
+  if(trk)try{Tone.Transport.seconds=pos;}catch(err){}
+  g('pgfill').style.transform=`scaleX(${pct})`;
+  setTC(pos);_lastPhSec=Math.floor(pos);
+  const ph=g('playhead');if(ph)ph.style.transform=`translateX(${(pos*PPS).toFixed(1)}px)`;
+};
+// ---- EXPORT ----
+async function renderTrackOffline(t,voiceFilter,ignoreMixer){
+  const tail=2.2; // let reverb/release tails finish instead of clipping the render
+  const totalDur=t.dur+tail;
+  return await Tone.Offline(async()=>{
+    const rev=new Tone.Reverb({decay:3,wet:.32});await rev.generate();rev.toDestination();
+    const drumVI=vp.findIndex(v=>v.timbre==='Drum Kit');
+    const kit=buildDrumKit(drumVI>=0?(vp[drumVI].vol||0):0);
+    const lsyns=[null,null,null,null];
+    for(let vi=0;vi<4;vi++){
+      const v=vp[vi];if(v.timbre==='Drum Kit')continue;
+      const{syn}=buildVoiceSynth(v,rev);
+      syn.volume.value=baseVol(vi)+(v.vol||0);
+      lsyns[vi]=syn;
+    }
+    Tone.Transport.bpm.value=t.bpm;
+    const hasSolo=t.voices.some((_,i)=>vp[i].solo);
+    t.voices.forEach((v,vi)=>{
+      if(!voiceFilter(vi))return;
+      if(!ignoreMixer){if(v.muted)return;if(hasSolo&&!vp[vi].solo)return;}
+      v.notes.forEach(n=>{
+        Tone.Transport.schedule(time=>{
+          if(n.drumPart!==undefined)trigDrumOn(kit,n.drumPart,time,n.vel);
+          else if(lsyns[vi])try{if(TX[v.timbre]?.membrane)lsyns[vi].triggerAttackRelease(n.note,'8n',time,n.vel);else lsyns[vi].triggerAttackRelease(n.note,n.duration,time,n.vel);}catch(e){}
+        },n.time);
+      });
+    });
+    Tone.Transport.start();
+  },totalDur);
+}
+function bufferToWav(buffer){
+  const ab=buffer.get?buffer.get():buffer;
+  const numCh=ab.numberOfChannels,len=ab.length,sr=ab.sampleRate;
+  const blockAlign=numCh*2,dataSize=len*blockAlign;
+  const out=new ArrayBuffer(44+dataSize);const view=new DataView(out);
+  const ws=(off,str)=>{for(let i=0;i<str.length;i++)view.setUint8(off+i,str.charCodeAt(i));};
+  ws(0,'RIFF');view.setUint32(4,36+dataSize,true);ws(8,'WAVE');
+  ws(12,'fmt ');view.setUint32(16,16,true);view.setUint16(20,1,true);
+  view.setUint16(22,numCh,true);view.setUint32(24,sr,true);
+  view.setUint32(28,sr*blockAlign,true);view.setUint16(32,blockAlign,true);view.setUint16(34,16,true);
+  ws(36,'data');view.setUint32(40,dataSize,true);
+  const chans=[];for(let c=0;c<numCh;c++)chans.push(ab.getChannelData(c));
+  let off=44;
+  for(let i=0;i<len;i++)for(let c=0;c<numCh;c++){let s=Math.max(-1,Math.min(1,chans[c][i]));s=s<0?s*0x8000:s*0x7FFF;view.setInt16(off,s,true);off+=2;}
+  return new Blob([out],{type:'audio/wav'});
+}
+function dlBlob(blob,name){
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},250);
+}
+const DRUM_MIDI={kick:36,snare:38,hhc:42,hho:46,crash:49,ride:51,tomhi:50,tomlo:45,ftom:41};
+function noteNameToMidi(note){
+  const m=String(note).match(/^([A-G])(#|b)?(-?\d+)$/);if(!m)return 60;
+  const base={C:0,D:2,E:4,F:5,G:7,A:9,B:11}[m[1]];
+  const acc=m[2]==='#'?1:m[2]==='b'?-1:0;
+  return (parseInt(m[3],10)+1)*12+base+acc;
+}
+function writeVarLen(value){
+  let bytes=[value&0x7F];value>>=7;
+  while(value>0){bytes.unshift((value&0x7F)|0x80);value>>=7;}
+  return bytes;
+}
+function midiTrackBytes(events,channel){
+  events.sort((a,b)=>a.tick-b.tick||(a.type==='off'?-1:1));
+  let bytes=[],lastTick=0;
+  events.forEach(e=>{
+    bytes.push(...writeVarLen(e.tick-lastTick));lastTick=e.tick;
+    if(e.type==='on')bytes.push(0x90|channel,e.note,Math.max(1,Math.round(e.vel*127)));
+    else bytes.push(0x80|channel,e.note,0);
+  });
+  bytes.push(...writeVarLen(0),0xFF,0x2F,0x00);
+  return bytes;
+}
+function midiChunk(id,bytes){
+  const head=[...id].map(c=>c.charCodeAt(0));
+  const len=bytes.length;
+  return [...head,(len>>24)&0xFF,(len>>16)&0xFF,(len>>8)&0xFF,len&0xFF,...bytes];
+}
+function buildMidiFile(t){
+  const ppq=480;
+  const usPerBeat=Math.round(60000000/t.bpm);
+  const tempoTrack=[...writeVarLen(0),0xFF,0x51,0x03,(usPerBeat>>16)&0xFF,(usPerBeat>>8)&0xFF,usPerBeat&0xFF,...writeVarLen(0),0xFF,0x2F,0x00];
+  const tracks=[midiChunk('MTrk',tempoTrack)];
+  let melCh=0;
+  t.voices.forEach((v)=>{
+    if(!v.notes.length)return;
+    const isDrum=v.timbre==='Drum Kit';
+    const events=[];
+    v.notes.forEach(n=>{
+      const midi=isDrum?(DRUM_MIDI[DSK[n.drumPart]]||38):noteNameToMidi(n.note);
+      const startTick=Math.round((n.time/60)*t.bpm*ppq);
+      const durSec=isDrum?0.12:n.duration;
+      const endTick=Math.max(Math.round(((n.time+durSec)/60)*t.bpm*ppq),startTick+1);
+      events.push({tick:startTick,type:'on',note:midi,vel:n.vel});
+      events.push({tick:endTick,type:'off',note:midi,vel:0});
+    });
+    const ch=isDrum?9:(melCh++%9); // channel 9 (MIDI ch10) reserved for GM drums
+    tracks.push(midiChunk('MTrk',midiTrackBytes(events,ch)));
+  });
+  const header=midiChunk('MThd',[0,1,(tracks.length>>8)&0xFF,tracks.length&0xFF,(ppq>>8)&0xFF,ppq&0xFF]);
+  return new Blob([new Uint8Array([...header,...tracks.flat()])],{type:'audio/midi'});
+}
+function setExportBusy(btn,busy,label){
+  if(busy){btn._orig=btn._orig||btn.textContent;btn.disabled=true;btn.style.opacity='.55';btn.textContent=label;}
+  else{btn.disabled=false;btn.style.opacity='';btn.textContent=btn._orig;}
+}
+g('e1').onclick=async function(){
+  if(!trk)return;const btn=this;setExportBusy(btn,true,'⏳ Rendering…');
+  try{const buf=await renderTrackOffline(trk,()=>true,false);dlBlob(bufferToWav(buf),`track-${Date.now()}.wav`);}
+  catch(e){console.error(e);alert('Export failed: '+e.message);}
+  setExportBusy(btn,false);
+};
+g('e2').onclick=async function(){
+  if(!trk)return;const btn=this;setExportBusy(btn,true,'⏳ Rendering stems…');
+  try{
+    if(typeof JSZip==='undefined')throw new Error('JSZip failed to load — check your connection');
+    const zip=new JSZip();let any=false;
+    for(let vi=0;vi<4;vi++){
+      if(!trk.voices[vi].notes.length)continue;any=true;
+      const label=vp[vi].timbre==='Drum Kit'?'drums':`${vp[vi].role||'voice'}${vi+1}`;
+      const buf=await renderTrackOffline(trk,i=>i===vi,true);
+      zip.file(`${vi+1}-${label}.wav`,bufferToWav(buf));
+    }
+    if(!any)throw new Error('No notes to export yet — generate a track first');
+    dlBlob(await zip.generateAsync({type:'blob'}),`stems-${Date.now()}.zip`);
+  }catch(e){console.error(e);alert('Export failed: '+e.message);}
+  setExportBusy(btn,false);
+};
+g('e3').onclick=function(){
+  if(!trk)return;const btn=this;setExportBusy(btn,true,'⏳ Writing…');
+  try{dlBlob(buildMidiFile(trk),`track-${Date.now()}.mid`);}
+  catch(e){console.error(e);alert('Export failed: '+e.message);}
+  setExportBusy(btn,false);
+};
 
 (async()=>{const sp=await store.get('mcg-presets');if(sp)saves=sp;genAndRender();})();
 </script>
